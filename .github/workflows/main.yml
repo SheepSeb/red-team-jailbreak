@@ -31,7 +31,4 @@ jobs:
       - name: Install Python requirements
         run: pip install -r requirements.txt
       - name: Tests
-        run: python -m unittest discover -s tests
-      # # You can test your matrix by printing the current Python version
-      # - name: Display Python version
-      #   run: python -c "import sys; print(sys.version)"
+        run: python -m unittest discover -s tests -p *_test.py 
