@@ -21,8 +21,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install Ollama
         run: curl -fsSL https://ollama.com/install.sh | sh
-      - name: Activate Ollama
-        run: systemctl enable ollama
       - name: Install Llama
         run: ollama run llama2
       - name: Install LLava
