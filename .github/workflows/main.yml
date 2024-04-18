@@ -1,6 +1,12 @@
 name: Unittest
 
-on: [push]
+on:
+  push:
+    branches:
+      -main
+  pull_request:
+    branches:
+      -main
 
 jobs:
   build:
@@ -20,6 +26,12 @@ jobs:
         run: curl -fsSL https://ollama.com/install.sh | sh
       - name: Install Llama
         run: ollama run llama2
+      - name: Install LLava
+        run: ollama run llava
+      - name: Install Python requirements
+        run: pip install -r requirements.txt
+      - name: Tests
+        run: python -m unittest discover -s tests
       # # You can test your matrix by printing the current Python version
       # - name: Display Python version
       #   run: python -c "import sys; print(sys.version)"
