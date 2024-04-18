@@ -3,6 +3,7 @@ name: Unittest
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,8 +21,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install Ollama
         run: curl -fsSL https://ollama.com/install.sh | sh
-      - name: Serve Ollama
-        run: ollama serve
       - name: Install Llama
         run: ollama run llama2
       - name: Install LLava
