@@ -1,6 +1,6 @@
 import unittest
 
-from src.response_api import ResponseAPI
+from src.mm_response_api import ResponseAPI
 
 
 class TestResponseAPI(unittest.TestCase):
