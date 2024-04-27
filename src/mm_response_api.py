@@ -10,7 +10,7 @@ class mm_ResponseAPI:
         data = {
             "model": model,
             "prompt": prompt,
-            "image": image
+            "image_data": image_data
         }
 
         response = requests.post(self.url, json=data)
