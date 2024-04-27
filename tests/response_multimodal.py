@@ -1,6 +1,6 @@
 import unittest
 import base64
-from src.response_api import mm_ResponseAPI
+from src.mm_response_api import mm_ResponseAPI
 
 with open('test.jpg', 'rb') as f:
     image_data = base64.b64encode(f.read()).decode('utf-8')
