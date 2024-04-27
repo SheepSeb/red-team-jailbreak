@@ -1,24 +1,28 @@
 import unittest
+import base64
+from src.response_api import ResponseAPI
 
-from src.mm_response_api import ResponseAPI
+with open('test.jpg', 'rb') as f:
+    image_data = base64.b64encode(f.read()).decode('utf-8')
+    
+class mm_TestResponseAPI(unittest.TestCase):
+    def test_get_response_with_image(self):
+        response_api = mm_ResponseAPI()
 
-
-class TestResponseAPI(unittest.TestCase):
-    def test_get_response_text(self):
-        response_api = ResponseAPI()
-        response = response_api.get_response_multimodal('llava', 'What is in this picture?', ["iVBORw0KGgoAAAANSUhEUgAAAG0AAABmCAYAAADBPx+VAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAA3VSURBVHgB7Z27r0zdG8fX743i1bi1ikMoFMQloXRpKFFIqI7LH4BEQ+NWIkjQuSWCRIEoULk0gsK1kCBI0IhrQVT7tz/7zZo888yz1r7MnDl7z5xvsjkzs2fP3uu71nNfa7lkAsm7"])
+        response = response_api.get_response('llava', 'What is in the image?', image_data)
         self.assertNotEqual(response, '')
 
-    def test_is_str(self):
-        response_api = ResponseAPI()
-        response = response_api.get_response_multimodal('llava', 'What is in this picture?', ["iVBORw0KGgoAAAANSUhEUgAAAG0AAABmCAYAAADBPx+VAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAA3VSURBVHgB7Z27r0zdG8fX743i1bi1ikMoFMQloXRpKFFIqI7LH4BEQ+NWIkjQuSWCRIEoULk0gsK1kCBI0IhrQVT7tz/7zZo888yz1r7MnDl7z5xvsjkzs2fP3uu71nNfa7lkAsm7"])
+    def test_get_response_with_image_is_str(self):
+        response_api = mm_ResponseAPI()
+
+        response = response_api.get_response('llava', 'What is in the image?', image_data)
         self.assertIsInstance(response, str)
 
-    def test_newline(self):
-        response_api = ResponseAPI()
-        response = response_api.get_response_multimodal('llava', 'What is in this picture?', ["iVBORw0KGgoAAAANSUhEUgAAAG0AAABmCAYAAADBPx+VAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAA3VSURBVHgB7Z27r0zdG8fX743i1bi1ikMoFMQloXRpKFFIqI7LH4BEQ+NWIkjQuSWCRIEoULk0gsK1kCBI0IhrQVT7tz/7zZo888yz1r7MnDl7z5xvsjkzs2fP3uu71nNfa7lkAsm7"])
-        self.assertNotIn('\n', response)
+    def test_get_response_with_image_no_newline(self):
+        response_api = mm_ResponseAPI()
 
+        response = response_api.get_response('llava', 'What is in the image?', image_data)
+        self.assertNotIn('\n', response)
 
 if __name__ == '__main__':
     unittest.main()
