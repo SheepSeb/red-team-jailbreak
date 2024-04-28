@@ -1,10 +1,15 @@
 import os
 
 import numpy as np
-from torch.utils.data import DataLoader, Dataset
+import pandas as pd
+from torch.utils.data import Dataset
 
 
 class TextDataset(Dataset):
+    '''
+    TextDataset class to load text data from a file and return it as a dataset
+    '''
+
     def __init__(self, text_file_path: str, shuffle: bool = False, transform=None, target_transform=None):
         self._test_data = None
         self._train_data = None
@@ -45,10 +50,20 @@ class TextDataset(Dataset):
         return self._train_data, self._test_data
 
 
-class LLMDataLoader(DataLoader):
-    def __init__(self, dataset, batch_size, shuffle=True):
-        super(LLMDataLoader, self).__init__(dataset, batch_size, shuffle)
+class ParquetDataset(Dataset):
+    '''
+    ParquetDataset class to load data from a parquet file and return it as a dataset
+    '''
 
-    @staticmethod
-    def from_huggingface_dataset(dataset, batch_size, shuffle=True):
-        return LLMDataLoader(dataset, batch_size, shuffle)
+    def __init__(self, file_path: str):
+        self.parquet_file_path = file_path
+        if not os.path.isabs(self.parquet_file_path):
+            self.parquet_file_path = os.path.abspath(self.parquet_file_path)
+
+        self.parquet_data = pd.read_parquet(self.parquet_file_path)
+
+    def __len__(self):
+        return len(self.parquet_data)
+
+    def __getitem__(self, idx):
+        return self.parquet_data.iloc[idx]
