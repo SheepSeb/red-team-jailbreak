@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.11"]
+        python-version: [ "3.9", "3.11" ]
 
     steps:
       - uses: actions/checkout@v4
@@ -19,12 +19,12 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Ollama
-        run: curl -fsSL https://ollama.com/install.sh | sh
-      - name: Install Llama
-        run: ollama run llama2
-      - name: Install LLava
-        run: ollama run llava
+      #      - name: Install Ollama
+      #        run: curl -fsSL https://ollama.com/install.sh | sh
+      #      - name: Install Llama
+      #        run: ollama run llama2
+      #      - name: Install LLava
+      #        run: ollama run llava
       - name: Install Python requirements
         run: pip install -r requirements.txt
       - name: Tests
