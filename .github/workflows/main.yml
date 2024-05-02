@@ -18,7 +18,7 @@ jobs:
       - name: Show Folder
         run: pwd && ls -la
       - name: Create data folder
-        run: mkdir data
+        run: mkdir ../data
       - name: Move folder
         run: mv data/* ../data
       - name: Set up Python ${{ matrix.python-version }}
