@@ -6,7 +6,7 @@ from src.mm_response_api import MM_ResponseAPI
     
 class MM_TestResponseAPI(unittest.TestCase):
 
-    with open('test.jpg', 'rb') as f:
+    with open('test_images/test.jpg', 'rb') as f:
     image_data = base64.b64encode(f.read()).decode('utf-8')
     
     def test_get_response_with_image(self):
