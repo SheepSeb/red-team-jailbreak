@@ -2,11 +2,11 @@ import requests
 import json
 
 
-class mm_ResponseAPI:
+class MM_ResponseAPI:
     def __init__(self):
         self.url = 'http://localhost:11434/api/generate'
 
-    def get_response_multimodal(self, model: str, prompt: str, image: byte = None) -> str:
+    def get_response_multimodal(self, model: str, prompt: str, image_data: str) -> str:
         data = {
             "model": model,
             "prompt": prompt,
