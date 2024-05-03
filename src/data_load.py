@@ -108,5 +108,5 @@ class VisualLoader(Dataset):
     def download_data(path: str = "../data/imagenet_data") -> HuggingFaceDataset:
         path = os.path.abspath(path)
         os.environ["HF_DATASETS_CACHE"] = f"{path}"
-        dataset = load_dataset("Hamdy20002/Gamal")
+        dataset = load_dataset("phiyodr/inpaintCOCO")
         return dataset

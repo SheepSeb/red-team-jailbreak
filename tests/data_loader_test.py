@@ -63,6 +63,6 @@ class TestVisualLoader(unittest.TestCase):
 
     def test_splits(self):
         dataset = VisualLoader(download=True)
-        test_img_data = dataset['train'][0]
-        self.assertIn('image', test_img_data)
-        self.assertIn('text', test_img_data)
+        test_img_data = dataset['test'][0]
+        self.assertIn('coco_image', test_img_data)
+        self.assertIn('coco_caption', test_img_data)
