@@ -1,16 +1,28 @@
 import requests
 import json
-
+import base64
+import os
 
 class MMResponseAPI:
+
     def __init__(self):
         self.url = 'http://localhost:11434/api/generate'
+        
+    def get_image_data(self, image_path):
+        if not os.path.isabs(image_path):
+            image_path = os.path.abspath(image_path)
 
-    def get_response_multimodal(self, model: str, prompt: str, image_data: str) -> str:
+        with open(image_path, 'rb') as f:
+            image_data = base64.b64encode(f.read()).decode('utf-8')
+        return image_data
+
+
+    def get_response_multimodal(self, model: str, prompt: str, image: str) -> str:
+
         data = {
             "model": model,
             "prompt": prompt,
-            "image_data": image_data
+            "image": image
         }
 
         response = requests.post(self.url, json=data)
