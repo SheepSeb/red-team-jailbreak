@@ -2,7 +2,7 @@ import requests
 import json
 
 
-class MM_ResponseAPI:
+class MMResponseAPI:
     def __init__(self):
         self.url = 'http://localhost:11434/api/generate'
 
