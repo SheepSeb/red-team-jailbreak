@@ -1,7 +1,9 @@
-import requests
-from src.response_api import ResponseAPI
 import base64
 import os
+
+import requests
+
+from src.response_api import ResponseAPI
 
 
 class MMResponseAPI(ResponseAPI):
@@ -23,7 +25,9 @@ class MMResponseAPI(ResponseAPI):
         data = {
             "model": model,
             "prompt": prompt,
-            "image": image
+            "image": image,
+            "raw": "true",
+            "stream": "false",
         }
 
         response = requests.post(self.url, json=data)
