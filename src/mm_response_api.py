@@ -26,8 +26,8 @@ class MMResponseAPI(ResponseAPI):
             "model": model,
             "prompt": prompt,
             "image": image,
-            "raw": "true",
-            "stream": "false",
+            "raw": True,
+            "stream": False,
         }
 
         response = requests.post(self.url, json=data)

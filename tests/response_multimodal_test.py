@@ -3,7 +3,7 @@ import unittest
 from src.mm_response_api import MMResponseAPI
 
 
-@unittest.skip("Skipping due to Ollama inconsistency")
+# @unittest.skip("Skipping due to Ollama inconsistency")
 class TestMMResponseAPI(unittest.TestCase):
 
     def test_get_response_with_image(self):
