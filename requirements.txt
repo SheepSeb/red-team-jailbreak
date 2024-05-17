@@ -4,3 +4,4 @@ pandas==2.2.2
 Requests==2.31.0
 torch==2.2.2
 Pillow==10.3.0
+torchmetrics==1.4.0
