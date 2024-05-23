@@ -233,7 +233,7 @@ def multimodal():
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print("Usage: python main.py [nlp|mm]")
+        print("Usage: python run_with_attacker.py [nlp|mm]")
         sys.exit(1)
     mode = sys.argv[1]
     if mode == "mm":
