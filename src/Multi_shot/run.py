@@ -99,7 +99,7 @@ def multimodal_multishot():
         step += 1
 
 def attack_nlp_multishot(harmful_text: str, step: int, batch_prompts: List[str]):
-    VICTIM_LLM = "your_model_name"
+    VICTIM_LLM = "llama2"
     victim_llm = ResponseAPI()
 
     for batch_prompt in batch_prompts:
