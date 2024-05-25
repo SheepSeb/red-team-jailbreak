@@ -51,6 +51,7 @@ def attack_mm_multishot(harmful_text: str, step: int, image, batch_prompts: List
     VICTIM_LLM = "llava"
     JUDGE_LLM = "llama2-uncensored"
     victim_llm = MMResponseAPI()
+    judge_llm = ResponseAPI()
 
     for batch_prompt in batch_prompts:
         system_prompt_attacker = batch_prompt + f"Question: {harmful_text}\nAnswer: "
@@ -79,8 +80,7 @@ def attack_mm_multishot(harmful_text: str, step: int, image, batch_prompts: List
             score = score.group(0).split("/")[0].strip()
         else:
             score = 0
-
-        writer.add_scalar("Evolution of score prompts Score", int(score), step)
+            writer.add_scalar("Evolution of score prompts Score", int(score), step)
         return int(score)
 
 def multimodal_multishot():
@@ -110,6 +110,7 @@ def attack_nlp_multishot(harmful_text: str, step: int, batch_prompts: List[str])
     VICTIM_LLM = "llama2"
     JUDGE_LLM = "llama2-uncensored"
     victim_llm = ResponseAPI()
+    judge_llm = ResponseAPI()
 
     for batch_prompt in batch_prompts:
         system_prompt_attacker = batch_prompt + f"Question: {harmful_text}\nAnswer: "
@@ -119,7 +120,7 @@ def attack_nlp_multishot(harmful_text: str, step: int, batch_prompts: List[str])
         victim_system_prompt = f"{attack_prompt}\n{harmful_text}"
         victim_response = victim_llm.get_response_text(VICTIM_LLM, victim_system_prompt)
 
-         if not victim_response.strip():
+        if not victim_response.strip():
             writer.add_text("Victim Response", "No response received", step)
             writer.add_scalar("Evolution of score prompts Score", 0, step)
             return 0
