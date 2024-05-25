@@ -14,7 +14,7 @@ from src.response_api import ResponseAPI
 
 # Define global variables and configurations
 malicious_instruct = TextDataset("../../data/maliciousInstruct.txt")
-log_dir = "runs_gemma"
+log_dir = "runs"
 writer = SummaryWriter(log_dir)
 
 _test_prefixes = [
