@@ -59,6 +59,11 @@ def attack_mm_multishot(harmful_text: str, step: int, image, batch_prompts: List
         
         victim_system_prompt = f"{attack_prompt}\n{harmful_text}"
         victim_response = victim_llm.get_response_multimodal(VICTIM_LLM, victim_system_prompt, image)
+
+        if not victim_response.strip():
+            writer.add_text("Victim Response", "No response received", step)
+            writer.add_scalar("Evolution of score prompts Score", 0, step)
+            return 0
         
         for prefix in _test_prefixes:
             if prefix in victim_response:
@@ -113,6 +118,11 @@ def attack_nlp_multishot(harmful_text: str, step: int, batch_prompts: List[str])
 
         victim_system_prompt = f"{attack_prompt}\n{harmful_text}"
         victim_response = victim_llm.get_response_text(VICTIM_LLM, victim_system_prompt)
+
+         if not victim_response.strip():
+            writer.add_text("Victim Response", "No response received", step)
+            writer.add_scalar("Evolution of score prompts Score", 0, step)
+            return 0
 
         for prefix in _test_prefixes:
             if prefix in victim_response:
