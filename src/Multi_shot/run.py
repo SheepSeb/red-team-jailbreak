@@ -95,12 +95,9 @@ def attack_nlp_multishot(harmful_text: str, step: int, batch_prompts: List[str],
     ResponseAPI = ResponseAPI()
 
     for batch_prompt in batch_prompts:
-        system_prompt_attacker = batch_prompt + harmful_text
-        attack_prompt = ResponseAPI.get_response_text(VICTIM_LLM, system_prompt_attacker)
-    
+        system_prompt_attacker = batch_prompt + f"\n{harmful_text}"
+        victim_response = ResponseAPI.get_response_text(VICTIM_LLM, system_prompt_attacker)
 
-        victim_system_prompt = f"{attack_prompt}\n{harmful_text}"
-        victim_response = ResponseAPI.get_response_text(VICTIM_LLM, victim_system_prompt)
 
         if not victim_response.strip():
             writer.add_text("Victim Response", "No response received", step)
