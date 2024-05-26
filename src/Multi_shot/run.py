@@ -1,6 +1,6 @@
 import re
 import sys
-import csv
+import pandas as pd
 import os
 import base64
 import requests
@@ -33,11 +33,8 @@ _test_prefixes = [
 ]
 
 def read_csv(file_path):
-    with open(file_path, 'r') as csvfile:
-        reader = csv.reader(csvfile)
-        next(reader)  # Skip header row
-        table = [row for row in reader]
-    return table
+    df = pd.read_csv(file_path)
+    return df.values.tolist()
 
 def create_multishot_prompts(table, batch_sizes):
     prompts = []
@@ -92,12 +89,10 @@ def attack_mm_multishot(harmful_text: str, step: int, image, batch_prompts: List
 def attack_nlp_multishot(harmful_text: str, step: int, batch_prompts: List[str], batch_number: int):
     VICTIM_LLM = "llama2"
     JUDGE_LLM = "llama2-uncensored"
-    ResponseAPI = ResponseAPI()
-
+    
     for batch_prompt in batch_prompts:
         system_prompt_attacker = batch_prompt + f"\n{harmful_text}"
         victim_response = ResponseAPI.get_response_text(VICTIM_LLM, system_prompt_attacker)
-
 
         if not victim_response.strip():
             writer.add_text("Victim Response", "No response received", step)
@@ -126,14 +121,12 @@ def attack_nlp_multishot(harmful_text: str, step: int, batch_prompts: List[str],
         return int(score)
 
 def log_result(batch_number, harmful_text, victim_response, score):
-    with open(results_file, 'a', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow([batch_number, harmful_text, victim_response, score])
+    new_row = pd.DataFrame([[batch_number, harmful_text, victim_response, score]], columns=['Batch Number', 'Harmful Text', 'Victim Response', 'Score'])
+    new_row.to_csv(results_file, mode='a', header=False, index=False)
 
 def initialize_results_file():
-    with open(results_file, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['Batch Number', 'Harmful Text', 'Victim Response', 'Score'])
+    df = pd.DataFrame(columns=['Batch Number', 'Harmful Text', 'Victim Response', 'Score'])
+    df.to_csv(results_file, index=False)
 
 def multimodal_multishot():
     input_csv = 'multishot.csv'
