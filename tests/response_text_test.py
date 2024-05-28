@@ -3,7 +3,6 @@ import unittest
 from src.response_api import ResponseAPI
 
 
-@unittest.skip("Ollama Tests API not available for Github Actions")
 class TestResponseAPI(unittest.TestCase):
     def test_get_response_text(self):
         response_api = ResponseAPI()
