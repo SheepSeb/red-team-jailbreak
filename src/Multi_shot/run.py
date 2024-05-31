@@ -171,7 +171,7 @@ def nlp_multishot():
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print("Usage: python run_with_attacker.py [nlp|mm]")
+        print("Usage: python run.py [nlp|mm]")
         sys.exit(1)
     mode = sys.argv[1]
     initialize_results_file()
